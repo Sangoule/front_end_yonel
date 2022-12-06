@@ -1,0 +1,123 @@
+<!-- 
+<!doctype html>
+<html lang="en">
+
+<head>
+    <title>YONEL</title>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+
+
+</head>
+
+<body>
+    <section class="ftco-section">
+        <div class="container">
+
+            <div class="row justify-content-center">
+                <div class="col-md-7 col-lg-5">
+                    <div class="wrap">
+                        <div class="row" > <img src="../../assets/img/logo_yonel.png" alt="image" /></div>
+                        <div class="login-wrap p-4 p-md-5">
+                            <div *ngIf="errmsgshow==true">
+                                <p class="text-danger"> {{errmsg}}</p>
+
+                            </div>
+
+                            <form action="#" class="signin-form" [formGroup]="loginForm" (ngSubmit)="loginSubmit()">
+
+                                <div class="form-group mt-3">
+                                    <input type="text" class="form-control" required formControlName="login">
+                                    <label class="form-control-placeholder" for="username">Login</label>
+                                </div>
+                                <div class="form-group">
+                                    <input id="password-field" type="password" class="form-control" required
+                                        formControlName="password">
+                                    <label class="form-control-placeholder" for="password">Password</label>
+                                    <span toggle="#password-field"
+                                        class="fa fa-fw fa-eye field-icon toggle-password"></span>
+                                </div>
+                                <div class="form-group">
+                                    <button type="submit" class="form-control btn btn-primary rounded submit px-3">Sign
+                                        In</button>
+                                </div>
+
+                            </form>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+
+
+</body>
+
+</html> -->
+
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>AdminLTE 3 | Log in</title>
+</head>
+
+<body>
+    <div class="container align-items-center">
+  
+
+        <div class="card">
+            <div class="card-body login-card-body">
+                <div *ngIf="errmsgshow==true">
+                    <p class="text-danger"> {{errmsg}}</p>
+                    <p class="text-danger"> {{errmsg1}}</p>
+                </div>
+                <p class="login-box-msg">Veuiilez Entrer vos informations</p>
+                <form action="#" [formGroup]="loginForm" (ngSubmit)="loginSubmit()">
+                    <div class="input-group mb-3">
+                        <input type="text" class="form-control" required formControlName="login">
+                        <label class="form-control-placeholder" for="username">Login</label>
+                    </div>
+                    <div class="input-group mb-3">
+                        <input id="password-field" type="password" class="form-control" required
+                        formControlName="password">
+                    <label class="form-control-placeholder" for="password">Password</label>
+                    <span toggle="#password-field"
+                        class="fa fa-fw fa-eye field-icon toggle-password"></span>
+                    </div>
+                    <div class="row">
+                        <div class="col-8">
+                            <div class="icheck-primary">
+                                <input type="checkbox" id="remember">
+                                <label for="remember">
+                                    Remember Me
+                                </label>
+                            </div>
+                        </div>
+
+                        <div class="col-4">
+                            <button type="submit" class="btn btn-primary btn-block">Sign In</button>
+                        </div>
+
+                    </div>
+                </form>
+               
+
+                <p class="mb-3 text-right text-danger">
+                    <a href="forgot-password.html">I forgot my password</a>
+                </p>
+                <p class="mb-0">
+                    <a href="register.html" class="text-center">Register a new membership</a>
+                </p>
+            </div>
+
+        </div>
+    </div>
+
+
+</body>
+
+</html>
