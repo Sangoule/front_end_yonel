@@ -1,8 +1,9 @@
 export interface topcard {
     bgcolor: string,
     icon: string,
-    title: string,
-    subtitle: string
+    title?: number,
+    subtitle: string,
+    montant?:number
 }
 
 export const topcards: topcard[] = [
@@ -10,26 +11,22 @@ export const topcards: topcard[] = [
     {
         bgcolor: 'success',
         icon: 'bi bi-wallet',
-        title: '$21k',
-        subtitle: 'Yearly Earning'
+        subtitle: 'Nombres De Transactions',
     },
     {
         bgcolor: 'danger',
         icon: 'bi bi-coin',
-        title: '$1k',
-        subtitle: 'Refund given'
+        subtitle: 'Solde Agence'
     },
     {
         bgcolor: 'warning',
         icon: 'bi bi-basket3',
-        title: '456',
-        subtitle: 'Yearly Project'
+        subtitle: 'Transactions Effectuées'
     },
     {
         bgcolor: 'info',
         icon: 'bi bi-bag',
-        title: '210',
-        subtitle: 'Weekly Sales'
+        subtitle: 'Transactions Invalides'
     },
 
 ] 

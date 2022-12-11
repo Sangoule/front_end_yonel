@@ -7,5 +7,6 @@ export class SousAgence {
     phone!: string;
     email!: string;
     agenceCode!: string;
+
 }
 

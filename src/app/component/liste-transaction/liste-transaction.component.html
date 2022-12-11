@@ -1,1 +1,82 @@
-<p>liste-transaction works!</p>
+<!-- 
+<div class="row">
+  <div class="col-12">
+    <h4>Liste des {{title}}s</h4>
+   
+    <table class="table table-hover align-middle text-nowrap table-bordered">
+      <thead>
+    <tr>
+      <th>Motant reçu</th>
+      <th>Date Envoi</th>
+      <th>Frais</th>
+      <th>Montant Totale</th>
+      <th>Status</th>
+      <th>Pays Origine</th>
+      <th>Pays Destination</th>
+      <th>Devise Origine</th>
+      <th>Devise Destination</th>
+      <th>ID Utilisateur</th>
+      <th>Id Emetteur</th>
+      <th>Id Recepteur</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr *ngFor="let transaction of datas">
+      <td>{{transaction.montant_a_recevoir}}</td>
+      <td>{{transaction.date_envoi}}</td>
+      <td>{{transaction.frais}} </td>
+      <td>{{transaction.montant_total}}</td>
+      <td>{{transaction.status}}</td>
+      <td>{{transaction.pays_origine}}</td>
+      <td>{{transaction.pays_destination}}</td>
+      <td>{{transaction.devise_origine}}</td>
+      <td>{{transaction.devise_destination}}</td>
+    
+    <tbody>
+      </table>
+  </div>
+</div>
+ -->
+ <div class="card">
+  <div class="card-body">
+      <h4 class="card-title">Liste des Transactions</h4>
+      <div class="table-responsive">
+          <table class="table table-hover align-middle text-nowrap table-bordered">
+              <thead>
+                  <tr>
+                    <th>Motant reçu</th>
+                    <th>Date Envoi</th>
+                    <th>Frais</th>
+                    <th>Montant Totale</th>
+                    <th>Status</th>
+                    <th>Pays Origine</th>
+                    <th>Pays Destination</th>
+                    <th>Devise Origine</th>
+                    <th>Devise Destination</th>
+                    <th>ID Utilisateur</th>
+                    <th>Id Emetteur</th>
+                    <th>Id Recepteur</th>
+                  </tr>
+              </thead>
+              <tbody>
+                  <tr *ngFor='let transaction of datas' >
+                    <td>{{transaction.montant_a_recevoir}}</td>
+                    <td>{{transaction.date_envoi | date:'medium'}}</td>
+                    <td>{{transaction.frais}} </td>
+                    <td>{{transaction.montant_total}}</td>
+                    <td>{{transaction.status}}</td>
+                    <td>{{transaction.pays_origine}}</td>
+                    <td>{{transaction.pays_destination}}</td>
+                    <td>{{transaction.devise_origine}}</td>
+                    <td>{{transaction.devise_destination}}</td>
+                    <td>{{transaction.id}}</td>
+                    <td>{{transaction.emetteurId}}</td>
+                    <td>{{transaction.recepteurId}}</td>
+      
+                  </tr>
+              </tbody>
+          </table>
+      </div>
+  </div>
+</div>
+  
