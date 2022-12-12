@@ -10,9 +10,9 @@ export class UserService {
   constructor(private _http: HttpClient) { }
   apiUrl =new Url;
   chemin=this.apiUrl.url
-
+  
   login(data: any): Observable<any> {
-    console.log(data, 'moussa');
+    console.log(data);
     return this._http.post(this.chemin+'yonel/login', data)
 
   }

@@ -32,6 +32,10 @@ export class UserComponent implements OnInit {
       this.userService.login(this.loginForm.value).subscribe((res) => {
         if (res!= null) {
           console.log(res, 'ress')
+          sessionStorage.setItem('login',res.login);
+          sessionStorage.setItem('id_sous_agence',res.sousAgenceCodeSousAgence);
+          //sessionStorage.setItem('')
+          sessionStorage.setItem('token',res.token);
          // apres je vais ajouter ici la securisation 
           this.router.navigate(['/dashboard']).then(() => {
             window.location.reload();

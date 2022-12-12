@@ -13,7 +13,7 @@ export class TransactionService {
   chemin=this.apiUrl.url
  
   getTransaction(): Observable<Transaction[]> {
-    return this.http.get<Transaction[]>(this.chemin+'yonel/transaction')
+    return this.http.get<Transaction[]>(this.chemin+'transaction')
   }
 
 }
