@@ -13,7 +13,7 @@ export class SousAgenceService {
   getSousAgence(): Observable<SousAgence[]> {
     return this.http.get<SousAgence[]>(this.chemin+'sousAgence')
   }
-  getMontantAgence(code:string) {
-    return this.http.get<any>(this.chemin+'sousAgence/agence/'+code)
+  getSousAgenceById(code:string) {
+    return this.http.get<any>(this.chemin+'sousAgence/'+code)
   }
 }

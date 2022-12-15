@@ -1,6 +1,7 @@
 import { Component, AfterViewInit, EventEmitter, Output } from '@angular/core';
 import { NgbModal } from '@ng-bootstrap/ng-bootstrap';
 import { PerfectScrollbarConfigInterface } from 'ngx-perfect-scrollbar';
+import { SousAgenceService } from '../../services/sous-agence.service';
 
 declare var $: any;
 
@@ -14,10 +15,16 @@ export class NavigationComponent implements AfterViewInit {
   public config: PerfectScrollbarConfigInterface = {};
 
   public showSearch = false;
-
-  constructor(private modalService: NgbModal) {
+  sous_agence:any;
+  login:any;
+  constructor(private modalService: NgbModal, private SousAgenceService:SousAgenceService) {
+    this.login=sessionStorage.getItem('login');
+    console.log(this.login)
   }
+  
 
+    //affectation du login depuis la base 
+   
   // This is for Notifications
   notifications: Object[] = [
     {
