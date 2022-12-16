@@ -3,7 +3,7 @@
     <div class="col-11 col-offset-2">
         <div class="card mt-3">
             <form action="#" [formGroup]="clientForm" (ngSubmit)="clientSubmit()">
-            <div class="card-header font-weight-bold align-items-center" *ngIf="!nu">Selectionner le Type d'Envoi
+            <div class="card-header font-weight-bold align-items-center" *ngIf="!nu&&step1">Selectionner le Type d'Envoi
                 <select formControlName="t_envoi">
                     <option value="" disabled>Choisir Type</option>
                     <option *ngFor="let type of TEnvoi" [ngValue]="type">
@@ -34,22 +34,20 @@
             <span class="input-group-text" id="basic-addon1"><i class="fas fa-search text-white" aria-hidden="true"></i></span>
             <input id="txt-search" class="form-control" type="text" placeholder="Search" aria-label="Search">
           </div> -->
-                <div class="mx-5">
-                    <ul>
-                        <li *ngFor="let post of items">
-                            <h1>{{post.phone}}</h1>
-                        </li>
-                    </ul>
-                </div>
+                
             </div>
             
                 <div class="card-body p-4 step">
                     <div class="text-center">
                         <h5 class="card-title font-weight-bold pb-2"*ngIf="step1">Informations Emmeteur</h5>
+                        <h5 class="card-title font-weight-bold pb-2"*ngIf="step4">Informations Recepteur</h5>
                     </div>
                     <div *ngIf="!clientForm.valid&&showWarn">
                         <p class="text-danger"> Champ Numéro de téléphone Invalide</p>
                     </div>
+                    <div *ngIf="errmsgshow">
+                        <p class="text-danger"> {{errmsg4}}</p>
+                      </div>
                     <!-- <div *ngIf="clientbp.phone==''&&showWarn">
                         <p class="text-danger"> Champ Numéro absent dans la base de donnes</p>
                     </div> -->
@@ -63,10 +61,18 @@
                                 formControlName="phone">
                             <div class="invalid-feedback">This field is required</div>
                         </div>
+                        <div class="col-4" *ngIf="step4"
+                        (mouseenter)="showWarn = true"
+                        (mouseleave)="showWarn = false">
+                        <label for="phone">Numéro Téléphone Recepteur<b style="color: #dc3545;">*</b></label>
+                        <input type="text" name="name" class="form-control" id="phone2" required
+                                formControlName="phone2">
+                            <div class="invalid-feedback">This field is required</div>
+                        </div>
                         <div class="col-4" *ngIf="step2">
                             <label for="nom">Nom<b style="color: #dc3545;">*</b></label>
                             <input type="text" class="form-control" formControlName="nom" id="nom" *ngIf="tel" [(ngModel)]="clientbp.nom" [placeholder]="clientbp.nom">
-                            <input type="text" class="form-control" formControlName="nom" id="nom">
+                            <input type="text" class="form-control" formControlName="nom" id="nom" *ngIf="!tel">
                             <div class="invalid-feedback">This field is required</div>
                         </div>
                         <div *ngIf="step2">
@@ -112,7 +118,11 @@
                   <!--   <button class="action back btn btn-sm btn-outline-warning" (click)="goBack()"
                         *ngIf="back!=0">Back</button> -->
                     <button class="action next btn btn-sm btn-outline-secondary float-end" (click)="[nextUser(),rechercheTel()]" [disabled]="!clientForm.valid" 
-                        *ngIf="!nu&&step1" >Suivant</button>
+                        *ngIf="!nu&&step1&&!step3" >Suivant</button>
+                        <button class="action next btn btn-sm btn-outline-secondary float-end" (click)="[recepteur(),rechercheTel()]" [disabled]="!clientForm.valid" 
+                        *ngIf="!nu&&step3&&!step4" >Suivant2</button>
+                        <button class="action next btn btn-sm btn-outline-secondary float-end" (click)="[rechercheTel_dest()]" [disabled]="!clientForm.valid" 
+                        *ngIf="!nu&&step4" >Suivant3</button>
                         <!-- <button type="submit" class="btn btn-sm btn-outline-success float-end"
                         [disabled]="!clientForm.valid" *ngIf="soumettre">submit</button> -->
                 </div>

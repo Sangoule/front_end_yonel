@@ -10,16 +10,18 @@ import { ClientService } from '../../services/client.service';
 })
 export class SendMoneyComponent{
   TEnvoi = [
-    {name: 'Arizona', abbrev: 'Nationale'},
-    {name: 'California', abbrev: 'Internationnale'},
+    {name: 'Na', abbrev: 'Nationale'},
+    {name: 'Int', abbrev: 'Internationnale'},
   ];
   errmsgshow: any;
   errmsg: string | undefined;
   errmsg1: string | undefined;
+  errmsg4:string | undefined;
   nu = true;
   showWarn=false;
   back = 10;
   clientbp: any;
+  client_dest:any;
   type_envoie?:boolean
   soumettre=false
   public items!: any[];
@@ -27,9 +29,12 @@ export class SendMoneyComponent{
   stape=0;
   step1=false
   step2=false
+  step3=false
+  step4=false
+  step5=false
 
   constructor(private _formBuilder: FormBuilder, private router: Router, private clientService: ClientService) {
-    this.initializeItems();
+   
     
   }
   clientForm = new FormGroup({
@@ -40,25 +45,25 @@ export class SendMoneyComponent{
     lieu_naissance: new FormControl(),
     birthdate: new FormControl(),
     t_envoi: new FormControl(this.TEnvoi[1],Validators.required),
+    phone2: new FormControl('', Validators.minLength(9)),
   })
-
+// les fonctions de navigations
   newUser() {
     this.nu = false;
-    console.log(this.stape+" First")
+
     this.step1=true
-    console.log(this.stape+ "Second")
   }
   nextUser() {
-    console.log(this.stape+" nnnn First")
     this.step2=true
     this.stape++
     this.soumettre=true
-    console.log(this.stape+" nnnnn second")
+
   }
   goBack() {
     
     this.nu = true;
   }
+  //Enregistrer un nouveaux utilisateur
   clientSubmit() {
 
     if (this.clientForm.valid) {
@@ -100,7 +105,7 @@ export class SendMoneyComponent{
           this.tel=true
         }
         // else {this.errmsgshow = true;this.errmsg1="Verifiez vos identifiants"}
-        this.stape++
+        this.step3=true
       })
 
     }
@@ -113,26 +118,49 @@ export class SendMoneyComponent{
       //else if (this.loginForm.){this.errmsg1 = " Verifiez Vos Identifiants";}
     }
   }
-  initializeItems() {
-    this.items = this.clientbp;
+  rechercheTel_dest() {
+    if (this.clientForm.value.phone2!='') {
+      if(this.clientForm.value.phone2==this.clientForm.value.phone){
+        this.errmsgshow = true;
+        if (true) {
+          this.errmsg4 = 'Bounou Fonto';
+        }
+      }
+      console.log(this.clientForm.value.phone);
+
+      this.clientService.getClientByPhone(this.clientForm.value.phone2).subscribe((res) => {
+        if (res!=null) {
+          this.client_dest=res
+          console.log(this.client_dest.phone2+" Bouma rousslo")
+        }
+        // else {this.errmsgshow = true;this.errmsg1="Verifiez vos identifiants"}
+      })
+      console.log(this.client_dest+" Thie rousloma nga deuk")
+      if(this.client_dest=null){
+        this.errmsgshow = true;
+        this.errmsg4 = ' Numéro déstinataire pas enregistrer';
+      }
+      this.step5=true
+
+    }
+    else {
+
+      this.errmsgshow = true;
+      if (this.clientForm.valid == null) {
+        this.errmsg = 'All field required';
+      }
+      //else if (this.loginForm.){this.errmsg1 = " Verifiez Vos Identifiants";}
+    }
+  }
+  
+  recepteur(){
+      this.step4=true
+      this.step3=false
+      this.step2=false
+      this.step1=false
   }
   registerRecepteur(){
     this.soumettre = true
   }
-  getItems(ev: any) {
-    // Reset items back to all of the items
-    this.initializeItems();
 
-    // set val to the value of the searchbar
-    let val = ev.target.value;
-
-    // if the value is an empty string don't filter the items
-    if (val && val.trim() != '') {
-      this.items = this.items.filter((item) => {
-        return (item.phone.toLowerCase().indexOf(val.toLowerCase()) > -1);
-      })
-    }
-
-
-  }
 }
