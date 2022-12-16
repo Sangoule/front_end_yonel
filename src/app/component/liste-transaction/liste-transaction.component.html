@@ -77,6 +77,53 @@
               </tbody>
           </table>
       </div>
+      <div class="card">
+        <div class="card-body">
+            <!-- title -->
+                    <h4 class="card-title">Top Selling</h4>
+                    <h5 class="card-subtitle">Overview of the projects</h5>
+                
+            <!-- title -->
+            <div class="table-responsive">
+                <table class="table align-middle">
+                    <thead>
+                        <tr>
+                            <th class="text-dark font-medium fs-4">Team Lead</th>
+                            <th class="text-dark font-medium fs-4">Project</th>
+                            <th class="text-dark font-medium fs-4">Status</th>
+                            <th class="text-dark font-medium fs-4">Weeks</th>
+                            <th class="text-dark font-medium fs-4">Budget</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr *ngFor='let ts of datas'>
+                            <td>
+                                <div class="d-flex align-items-center">
+                                    <img alt="user" width="45" class="rounded-circle">
+                                    <div class="ms-3">
+                                        <h5 class="mb-0 font-medium">{{ts.userLogin}}</h5>
+                                        <span class="text-muted">{{ts.id}}</span>
+                                    </div>
+                                </div>
+                            </td>
+                            <td class="fs-4">{{ts.montant_total}}</td>
+                            <td>
+                                <span class="p-2 bg-{{ts.status}} rounded-circle d-inline-block ms-3"></span>
+                            </td>
+                            
+                            <td>
+                                <h5 class="mb-0 fw-normal">{{ts.pays_origine}}</h5>
+                            </td>
+                            <td>
+                                <h5 class="mb-0 fw-normal">{{ts.pays_destination}}</h5>
+                            </td>
+                        </tr>              
+                    </tbody>
+                </table>
+            </div>
+        </div>
+        
+    </div>
   </div>
 </div>
   

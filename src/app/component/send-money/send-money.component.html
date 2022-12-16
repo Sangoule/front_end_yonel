@@ -1,53 +1,125 @@
-<div class="row">
-    <div class="col-md-12">
-        <div class="card card-default">
-            <div class="card-header">
-                <h3 class="card-title">bs-stepper</h3>
+<link rel='stylesheet' href='https://cdn.jsdelivr.net/npm/bootstrap@5.0.0-beta1/dist/css/bootstrap.min.css'>
+<div class="container d-flex justify-content-center" style="min-width:620px!important">
+    <div class="col-11 col-offset-2">
+        <div class="card mt-3">
+            <form action="#" [formGroup]="clientForm" (ngSubmit)="clientSubmit()">
+            <div class="card-header font-weight-bold align-items-center" *ngIf="!nu">Selectionner le Type d'Envoi
+                <select formControlName="t_envoi">
+                    <option value="" disabled>Choisir Type</option>
+                    <option *ngFor="let type of TEnvoi" [ngValue]="type">
+                        {{ type.abbrev }}
+                    </option>
+                </select>
             </div>
-            <div class="card-body p-0">
-                <div class="bs-stepper">
-                   
-                    <div class="bs-stepper-content">
+            <div class="card-body p-4 step" *ngIf="nu">
+                <div class="radio-group row justify-content-between px-3 text-center"
+                    style="justify-content:center !important">
 
-                        <div id="logins-part" class="content" role="tabpanel" aria-labelledby="logins-part-trigger">
-                            <div class="form-group">
-                                <label for="exampleInputEmail1">Email address</label>
-                                <input type="email" class="form-control" id="exampleInputEmail1"
-                                    placeholder="Enter email">
+                    <div class="selected  col-auto me-sm-2 mx-1 card-block py-0 text-center radio">
+                        <a (click)="newUser()">
+                            <div class="opt-icon"><i class="bi bi-send" style="font-size: 80px; margin-left: 20px;"></i>
                             </div>
-                            <div class="form-group">
-                                <label for="exampleInputPassword1">Password</label>
-                                <input type="password" class="form-control" id="exampleInputPassword1"
-                                    placeholder="Password">
-                            </div>
-                            <button class="btn btn-primary" onclick="stepper.next()">Next</button>
+                            <p><b>Envoi</b></p>
+                        </a>
+                    </div>
+
+                    <div id="suser" class="col-auto ms-sm-2 mx-1 card-block py-0 text-center radio">
+                        <div class="opt-icon"><i class="fas fa-users" style="font-size: 80px;"></i></div>
+                        <br>
+                        <p><b>Réception</b></p>
+                    </div>
+                </div>
+                <!--  <div class="searchfield text-center pb-1" style="font-size:12px">Search for example <b>Sangoulé</b></div>
+          <div class="searchfield input-group px-5">
+            <span class="input-group-text" id="basic-addon1"><i class="fas fa-search text-white" aria-hidden="true"></i></span>
+            <input id="txt-search" class="form-control" type="text" placeholder="Search" aria-label="Search">
+          </div> -->
+                <div class="mx-5">
+                    <ul>
+                        <li *ngFor="let post of items">
+                            <h1>{{post.phone}}</h1>
+                        </li>
+                    </ul>
+                </div>
+            </div>
+            
+                <div class="card-body p-4 step">
+                    <div class="text-center">
+                        <h5 class="card-title font-weight-bold pb-2"*ngIf="step1">Informations Emmeteur</h5>
+                    </div>
+                    <div *ngIf="!clientForm.valid&&showWarn">
+                        <p class="text-danger"> Champ Numéro de téléphone Invalide</p>
+                    </div>
+                    <!-- <div *ngIf="clientbp.phone==''&&showWarn">
+                        <p class="text-danger"> Champ Numéro absent dans la base de donnes</p>
+                    </div> -->
+                    <div class="form-group row">
+                        <div class="col-2"></div>
+                        <div class="col-4" *ngIf="step1"
+                        (mouseenter)="showWarn = true"
+                        (mouseleave)="showWarn = false">
+                        <label for="phone">Numéro Téléphone<b style="color: #dc3545;">*</b></label>
+                        <input type="text" name="name" class="form-control" id="phone" required
+                                formControlName="phone">
+                            <div class="invalid-feedback">This field is required</div>
                         </div>
-                        <div id="information-part" class="content" role="tabpanel"
-                            aria-labelledby="information-part-trigger">
-                            <div class="form-group">
-                                <label for="exampleInputFile">File input</label>
-                                <div class="input-group">
-                                    <div class="custom-file">
-                                        <input type="file" class="custom-file-input" id="exampleInputFile">
-                                        <label class="custom-file-label" for="exampleInputFile">Choose file</label>
-                                    </div>
-                                    <div class="input-group-append">
-                                        <span class="input-group-text">Upload</span>
-                                    </div>
+                        <div class="col-4" *ngIf="step2">
+                            <label for="nom">Nom<b style="color: #dc3545;">*</b></label>
+                            <input type="text" class="form-control" formControlName="nom" id="nom" *ngIf="tel" [(ngModel)]="clientbp.nom" [placeholder]="clientbp.nom">
+                            <input type="text" class="form-control" formControlName="nom" id="nom">
+                            <div class="invalid-feedback">This field is required</div>
+                        </div>
+                        <div *ngIf="step2">
+
+
+                            <div class="form-group row pt-2">
+                                <label for="prenom" class="col-2 text-end control-label col-form-label">Prénom<b
+                                        style="color: #dc3545;">*</b></label>
+                                <div class="col-8">
+                                    <input type="text" class="form-control" formControlName="prenom" id="prenom" *ngIf="tel" [(ngModel)]="clientbp.prenom" [placeholder]="clientbp.prenom">
+                                    <input type="text" class="form-control" formControlName="prenom" id="prenom" *ngIf="!tel">
                                 </div>
                             </div>
-                            <button class="btn btn-primary" onclick="stepper.previous()">Previous</button>
-                            <button type="submit" class="btn btn-primary">Submit</button>
+                            <div class="form-group row pt-2">
+                                <label for="email" class="col-2 text-end control-label col-form-label">Email<b
+                                        style="color: #dc3545;">*</b></label>
+                                <div class="col-8">
+                                    <input type="text" class="form-control" formControlName="email" id="email" *ngIf="tel" [(ngModel)]="clientbp.email" [placeholder]="clientbp.email">
+                                    <input type="text" class="form-control" formControlName="email" id="email" *ngIf="!tel">
+                                </div>
+                            </div>
+                            <div class="form-group row pt-2">
+                                <label for="birthdate" class="col-2 text-end control-label col-form-label">Date de
+                                    Naissance</label>
+                                <div class="col-8">
+                                    <input type="text" class="form-control" formControlName="birthdate" id="birthdate" *ngIf="tel" [(ngModel)]="clientbp.birthdate" [placeholder]="clientbp.birthdate">
+                                    <input type="text" class="form-control" formControlName="birthdate" id="birthdate" *ngIf="!tel">
+                                </div>
+                            </div>
+                            <div class="form-group row pt-2">
+                                <label for="lieu_naissance" class="col-2 text-end control-label col-form-label">Lieux De
+                                    Naissance</label>
+                                <div class="col-8">
+                                    <input type="text" class="form-control" formControlName="lieu_naissance" id="lieu_naissance" *ngIf="tel" [(ngModel)]="clientbp.lieu_naissance" [placeholder]="clientbp.lieu_naissance">
+                                    <input type="text" class="form-control" formControlName="lieu_naissance" id="lieu_naissance" *ngIf="!tel">
+                                </div>
+                            </div>
+                            <div class="text-center text-muted"><b style="color: #dc3545;">*</b> required fields</div>
                         </div>
                     </div>
                 </div>
-            </div>
-
-            
+                <div class="card-footer">
+                  <!--   <button class="action back btn btn-sm btn-outline-warning" (click)="goBack()"
+                        *ngIf="back!=0">Back</button> -->
+                    <button class="action next btn btn-sm btn-outline-secondary float-end" (click)="[nextUser(),rechercheTel()]" [disabled]="!clientForm.valid" 
+                        *ngIf="!nu&&step1" >Suivant</button>
+                        <!-- <button type="submit" class="btn btn-sm btn-outline-success float-end"
+                        [disabled]="!clientForm.valid" *ngIf="soumettre">submit</button> -->
+                </div>
+            </form>
         </div>
-       
+
+
     </div>
 </div>
-<script>document.addEventListener('DOMContentLoaded', function () {
-    var stepper = new Stepper(document.querySelector('.bs-stepper'))
- })</script>
+<!-- jQuery JS -->

@@ -10,6 +10,7 @@ import { ListeTransactionComponent } from './liste-transaction/liste-transaction
 import { SendMoneyComponent } from './send-money/send-money.component';
 import { ReceiveMoneyComponent } from './receive-money/receive-money.component';
 import { TransactionService } from '../services/transaction.service';
+import { PersonnesComponent } from './personnes/personnes.component';
 
 
 @NgModule({
@@ -18,13 +19,14 @@ import { TransactionService } from '../services/transaction.service';
     RouterModule.forChild(ComponentsRoutes),
     FormsModule,
     ReactiveFormsModule,
-    NgbModule,
+    NgbModule
   ],
   
   declarations: [
       ListeTransactionComponent,
       SendMoneyComponent,
-      ReceiveMoneyComponent
+      ReceiveMoneyComponent,
+      PersonnesComponent
   ]
 })
 export class ComponentsModule { 

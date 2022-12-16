@@ -11,25 +11,27 @@
           <form action="#" [formGroup]="loginForm" (ngSubmit)="loginSubmit()">
             <div class="d-flex flex-row align-items-center justify-content-center justify-content-lg-start" >
               <!-- <p class="lead fw-normal mb-0 me-3">Sign in with</p> -->
-              <div *ngIf="errmsgshow==true">
-                <p class="text-danger"> {{errmsg}}</p>
-                <p class="text-danger"> {{errmsg1}}</p>
-            </div>
+
             <p class="text-center fw-bold mx-3 mb-0">Yonel</p>
             </div>
   
             <div class="divider d-flex align-items-center my-4">
-              <p class="text-center fw-bold mx-3 mb-0">Veuillez Entrer vos informations</p>
+             
             </div>
   
             <!-- Email input -->
+            <div *ngIf="errmsgshow">
+              <p class="text-danger"> {{errmsg}}</p>
+            </div>
             <div class="form-outline mb-4">
-
               <input type="text" class="form-control form-control-lg" required formControlName="login">
               <label class="form-control-placeholder" for="username">Login</label>
             </div>
   
             <!-- Password input -->
+            <div *ngIf="errmsgshow">
+              <p class="text-danger"> {{errmsg1}}</p>
+            </div>
             <div class="form-outline mb-3" required formControlName="password">
               <input id="password-field" type="password" class="form-control form-control-lg" required
               formControlName="password">

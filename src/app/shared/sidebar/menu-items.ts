@@ -20,8 +20,8 @@ export const ROUTES: RouteInfo[] = [
   },
   {
     path: '/component/send-money',
-    title: "Envoyer de l' argent",
-    icon: 'bi bi-bell',
+    title: " Faire Une Transaction",
+    icon: 'bi bi-send',
     class: '',
     extralink: false,
     submenu: []

@@ -2,6 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { FormGroup, FormControl, Validators } from '@angular/forms';
 import { Router } from '@angular/router';
 import { UserService } from '../services/user.service';
+import { AlertService } from '../services/alert.service';
 
 @Component({
   selector: 'app-user',
@@ -12,10 +13,11 @@ import { UserService } from '../services/user.service';
 export class UserComponent implements OnInit {
 
   errmsgshow: any;
-  errmsg: string | undefined;
+  errmsg!: string;
   errmsg1: string | undefined;
+  stat!:string
 
-  constructor(private router: Router, private userService: UserService) { }
+  constructor(private router: Router, private userService: UserService,private alertService: AlertService) { }
 
   ngOnInit(){
   }
@@ -29,8 +31,11 @@ export class UserComponent implements OnInit {
 
     if (this.loginForm.valid) {
       console.log(this.loginForm.value.login, this.loginForm.value.password);
+     
       this.userService.login(this.loginForm.value).subscribe((res) => {
-        if (res!= null) {
+        this.stat=this.userService.code
+        console.log(this.userService.code+ "sama code")
+        if (res!= null ) {
           console.log(res, 'ress')
           sessionStorage.setItem('login',res.login);
           sessionStorage.setItem('id_sous_agence',res.sousAgenceCodeSousAgence);
@@ -41,19 +46,24 @@ export class UserComponent implements OnInit {
             window.location.reload();
           })
         }
-       // else {this.errmsgshow = true;this.errmsg1="Verifiez vos identifiants"}
+        
       
       })
 
     }
     else {
-
-      this.errmsgshow = true;
-      if(this.loginForm.valid==null){
-        this.errmsg = 'All field required';
+      console.log(this.loginForm.value.login +"Diap si waye")
+      this.errmsgshow=true
+      if(this.loginForm.value.login==''){
+        this.errmsg = 'Login incorect ';
       }
-      //else if (this.loginForm.){this.errmsg1 = " Verifiez Vos Identifiants";}
+      if(this.loginForm.value.password==''){
+        
+        this.errmsg1='Mot de passe incorect'
+      }
+      
     }
+    console.log(this.userService.code+" Lou bon")
   }
 
 }
