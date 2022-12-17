@@ -3,45 +3,47 @@
     <div class="col-11 col-offset-2">
         <div class="card mt-3">
             <form action="#" [formGroup]="clientForm" (ngSubmit)="clientSubmit()">
-            <div class="card-header font-weight-bold align-items-center" *ngIf="!nu&&step1">Selectionner le Type d'Envoi
-                <select formControlName="t_envoi">
-                    <option value="" disabled>Choisir Type</option>
-                    <option *ngFor="let type of TEnvoi" [ngValue]="type">
-                        {{ type.abbrev }}
-                    </option>
-                </select>
-            </div>
-            <div class="card-body p-4 step" *ngIf="nu">
-                <div class="radio-group row justify-content-between px-3 text-center"
-                    style="justify-content:center !important">
-
-                    <div class="selected  col-auto me-sm-2 mx-1 card-block py-0 text-center radio">
-                        <a (click)="newUser()">
-                            <div class="opt-icon"><i class="bi bi-send" style="font-size: 80px; margin-left: 20px;"></i>
-                            </div>
-                            <p><b>Envoi</b></p>
-                        </a>
-                    </div>
-
-                    <div id="suser" class="col-auto ms-sm-2 mx-1 card-block py-0 text-center radio">
-                        <div class="opt-icon"><i class="fas fa-users" style="font-size: 80px;"></i></div>
-                        <br>
-                        <p><b>Réception</b></p>
-                    </div>
+                <div class="card-header font-weight-bold align-items-center" *ngIf="!nu&&step1">Selectionner le Type
+                    d'Envoi
+                    <select formControlName="t_envoi">
+                        <option value="" disabled>Choisir Type</option>
+                        <option *ngFor="let type of TEnvoi" [ngValue]="type">
+                            {{ type.abbrev }}
+                        </option>
+                    </select>
                 </div>
-                <!--  <div class="searchfield text-center pb-1" style="font-size:12px">Search for example <b>Sangoulé</b></div>
+                <div class="card-body p-4 step" *ngIf="nu">
+                    <div class="radio-group row justify-content-between px-3 text-center"
+                        style="justify-content:center !important">
+
+                        <div class="selected  col-auto me-sm-2 mx-1 card-block py-0 text-center radio">
+                            <a (click)="newUser()">
+                                <div class="opt-icon"><i class="bi bi-send"
+                                        style="font-size: 80px; margin-left: 20px;"></i>
+                                </div>
+                                <p><b>Envoi</b></p>
+                            </a>
+                        </div>
+
+                        <div id="suser" class="col-auto ms-sm-2 mx-1 card-block py-0 text-center radio">
+                            <div class="opt-icon"><i class="fas fa-users" style="font-size: 80px;"></i></div>
+                            <br>
+                            <p><b>Réception</b></p>
+                        </div>
+                    </div>
+                    <!--  <div class="searchfield text-center pb-1" style="font-size:12px">Search for example <b>Sangoulé</b></div>
           <div class="searchfield input-group px-5">
             <span class="input-group-text" id="basic-addon1"><i class="fas fa-search text-white" aria-hidden="true"></i></span>
             <input id="txt-search" class="form-control" type="text" placeholder="Search" aria-label="Search">
           </div> -->
-                
-            </div>
-            
+
+                </div>
+
                 <div class="card-body p-4 step">
                     <div class="text-center">
-                        <h5 class="card-title font-weight-bold pb-2"*ngIf="step1&&!step5">Informations Emmeteur</h5>
-                        <h5 class="card-title font-weight-bold pb-2"*ngIf="step4&&!step5">Informations Recepteur</h5>
-                        <h5 class="card-title font-weight-bold pb-2"*ngIf="step5">Informations Transactions</h5>
+                        <h5 class="card-title font-weight-bold pb-2" *ngIf="step1&&!step5">Informations Emmeteur</h5>
+                        <h5 class="card-title font-weight-bold pb-2" *ngIf="step4&&!step5">Informations Recepteur</h5>
+                        <h5 class="card-title font-weight-bold pb-2" *ngIf="step5">Informations Transactions</h5>
                     </div>
                     <div *ngIf="!clientForm.valid&&showWarn&&!step5">
                         <p class="text-danger"> Champ Numéro de téléphone Invalide</p>
@@ -54,48 +56,74 @@
                     </div> -->
                     <div class="form-group row">
                         <div class="col-2"></div>
-                        <div class="col-4" *ngIf="step1"
-                        (mouseenter)="showWarn = false"
-                        (mouseleave)="showWarn = true">
-                        <label for="phone">Numéro Téléphone<b style="color: #dc3545;">*</b></label>
-                        <input type="text" name="name" class="form-control" id="phone" required
+                        <div class="col-4" *ngIf="step1" (mouseenter)="showWarn = false" (mouseleave)="showWarn = true">
+                            <label for="phone">Numéro Téléphone<b style="color: #dc3545;">*</b></label>
+                            <input type="text" name="name" class="form-control" id="phone" required
                                 formControlName="phone">
                             <div class="invalid-feedback">This field is required</div>
                         </div>
                         <div *ngIf="errmsgshow&&step5">
                             <p class="text-danger"> {{errmt1}}</p>
                         </div>
-                        <div class="col-4" *ngIf="step5">
-                        <label for="phone">Montant a Envoyé<b style="color: #dc3545;">*</b></label>
-                        <input type="text" name="name" class="form-control" id="phone" required
-                                formControlName="montant">
+                        <div class="col-3" *ngIf="step5">
+                            <label for="phone">Montant a Envoyé<b style="color: #dc3545;">*</b></label>
+                            <input type="text" name="name" class="form-control" id="phone" required
+                                formControlName="montant_a_recevoir">
                             <div class="invalid-feedback">This field is required</div>
                         </div>
-                        <div class="col-4" *ngIf="step4&&!step5"
-                        (mouseenter)="showWarn = false"
-                        (mouseleave)="showWarn = true">
-                        <label for="phone">Numéro Téléphone Recepteur<b style="color: #dc3545;">*</b></label>
-                        <input type="text" name="name" class="form-control" id="phone2" required
-                                formControlName="phone2">
-                            <div class="invalid-feedback">This field is required</div>
-                        </div>
-                        <div class="card-header font-weight-bold align-items-center" *ngIf="step4&&!step5">Pays destinataire
-                            <select formControlName="pays_dest">
+                      
+                        
+                        <div class="col-3" *ngIf="step5">
+                            <label for="pays_dest">Pays Origine<b style="color: #dc3545;">*</b></label>
+                            <select formControlName="pays_origine" class="form-control box">
                                 <option value="" disabled>Choisir Pays</option>
-                                <option *ngFor="let type of TEnvoi" [ngValue]="pays_dest.data">
-                                    {{ pays_dest.data }}
+                                <option *ngFor="let pays of pays_dest" [ngValue]="pays" name="pays">
+                                    {{pays.nom}} : {{ pays.deviseCodeiso3}}
                                 </option>
                             </select>
                         </div>
-                        <div class="col-4" *ngIf="">
-                        <label for="phone">Pays destinataire<b style="color: #dc3545;">*</b></label>
-                        <input type="text" name="name" class="form-control" id="phone2" required
-                                formControlName="pays_dest">
+                        <div class="col-3" *ngIf="step5">
+                            <label for="pays_dest">Pays Déstinataire<b style="color: #dc3545;">*</b></label>
+                            <select formControlName="pays_dest" class="form-control box">
+                                <option value="" disabled>Choisir Pays</option>
+                                <option *ngFor="let pays of pays_dest" [ngValue]="pays" name="pays">
+                                    {{pays.nom}} : {{ pays.deviseCodeiso3}}
+                                </option>
+                            </select>
+                        </div>
+                        <div *ngIf="step6" style="margin-top: 24px; opacity: 1; transition: opacity 0.5s ease 0s;">
+                            <div
+                                style="height: auto; overflow: visible; visibility: visible; transition: height 1s ease 0s, visibility 1s ease 0s;">
+                                <p class="result__ConvertedText-sc-1bsijpp-0 gwvOOF">15,000 CFA Francs =</p>
+                                <p class="result__BigRate-sc-1bsijpp-1 iGrAod">22.86<span
+                                        class="faded-digits">7353</span> Euros</p>
+                            </div>
+                            <div></div>
+                            <div class="result__Repulsor-sc-1bsijpp-4 dZGBTm">
+                                <div
+                                    style="flex-shrink: 0; display: flex; flex-direction: column; justify-content: space-around;">
+                                    <div class="unit-rates___StyledDiv-sc-1dk593y-0 dEqdnx"
+                                        style="height: auto; overflow: visible; visibility: visible; transition: height 1s ease 0s, visibility 1s ease 0s;">
+                                        <p>1 XOF = 0.00152449 EUR</p>
+                                        <p>1 EUR = 655.957 XOF</p>
+                                    </div>
+                                </div>
+  
+                            </div>
+                          
+                        </div>
+                        <div class="col-4" *ngIf="step4&&!step5" (mouseenter)="showWarn = false"
+                            (mouseleave)="showWarn = true">
+                            <label for="phone">Numéro Téléphone Recepteur<b style="color: #dc3545;">*</b></label>
+                            <input type="text" name="name" class="form-control" id="phone2" required
+                                formControlName="phone2">
                             <div class="invalid-feedback">This field is required</div>
                         </div>
+
                         <div class="col-4" *ngIf="step2">
                             <label for="nom">Nom<b style="color: #dc3545;">*</b></label>
-                            <input type="text" class="form-control" formControlName="nom" id="nom" *ngIf="tel" [(ngModel)]="clientbp.nom" [placeholder]="clientbp.nom">
+                            <input type="text" class="form-control" formControlName="nom" id="nom" *ngIf="tel"
+                                [(ngModel)]="clientbp.nom" [placeholder]="clientbp.nom">
                             <input type="text" class="form-control" formControlName="nom" id="nom" *ngIf="!tel">
                             <div class="invalid-feedback">This field is required</div>
                         </div>
@@ -106,32 +134,41 @@
                                 <label for="prenom" class="col-2 text-end control-label col-form-label">Prénom<b
                                         style="color: #dc3545;">*</b></label>
                                 <div class="col-8">
-                                    <input type="text" class="form-control" formControlName="prenom" id="prenom" *ngIf="tel" [(ngModel)]="clientbp.prenom" [placeholder]="clientbp.prenom">
-                                    <input type="text" class="form-control" formControlName="prenom" id="prenom" *ngIf="!tel">
+                                    <input type="text" class="form-control" formControlName="prenom" id="prenom"
+                                        *ngIf="tel" [(ngModel)]="clientbp.prenom" [placeholder]="clientbp.prenom">
+                                    <input type="text" class="form-control" formControlName="prenom" id="prenom"
+                                        *ngIf="!tel">
                                 </div>
                             </div>
                             <div class="form-group row pt-2">
                                 <label for="email" class="col-2 text-end control-label col-form-label">Email<b
                                         style="color: #dc3545;">*</b></label>
                                 <div class="col-8">
-                                    <input type="text" class="form-control" formControlName="email" id="email" *ngIf="tel" [(ngModel)]="clientbp.email" [placeholder]="clientbp.email">
-                                    <input type="text" class="form-control" formControlName="email" id="email" *ngIf="!tel">
+                                    <input type="text" class="form-control" formControlName="email" id="email"
+                                        *ngIf="tel" [(ngModel)]="clientbp.email" [placeholder]="clientbp.email">
+                                    <input type="text" class="form-control" formControlName="email" id="email"
+                                        *ngIf="!tel">
                                 </div>
                             </div>
                             <div class="form-group row pt-2">
                                 <label for="birthdate" class="col-2 text-end control-label col-form-label">Date de
                                     Naissance</label>
                                 <div class="col-8">
-                                    <input type="text" class="form-control" formControlName="birthdate" id="birthdate" *ngIf="tel" [(ngModel)]="clientbp.birthdate" [placeholder]="clientbp.birthdate">
-                                    <input type="text" class="form-control" formControlName="birthdate" id="birthdate" *ngIf="!tel">
+                                    <input type="text" class="form-control" formControlName="birthdate" id="birthdate"
+                                        *ngIf="tel" [(ngModel)]="clientbp.birthdate" [placeholder]="clientbp.birthdate">
+                                    <input type="text" class="form-control" formControlName="birthdate" id="birthdate"
+                                        *ngIf="!tel">
                                 </div>
                             </div>
                             <div class="form-group row pt-2">
                                 <label for="lieu_naissance" class="col-2 text-end control-label col-form-label">Lieux De
                                     Naissance</label>
                                 <div class="col-8">
-                                    <input type="text" class="form-control" formControlName="lieu_naissance" id="lieu_naissance" *ngIf="tel" [(ngModel)]="clientbp.lieu_naissance" [placeholder]="clientbp.lieu_naissance">
-                                    <input type="text" class="form-control" formControlName="lieu_naissance" id="lieu_naissance" *ngIf="!tel">
+                                    <input type="text" class="form-control" formControlName="lieu_naissance"
+                                        id="lieu_naissance" *ngIf="tel" [(ngModel)]="clientbp.lieu_naissance"
+                                        [placeholder]="clientbp.lieu_naissance">
+                                    <input type="text" class="form-control" formControlName="lieu_naissance"
+                                        id="lieu_naissance" *ngIf="!tel">
                                 </div>
                             </div>
                             <div class="text-center text-muted"><b style="color: #dc3545;">*</b> required fields</div>
@@ -139,18 +176,21 @@
                     </div>
                 </div>
                 <div class="card-footer">
-                  <!--   <button class="action back btn btn-sm btn-outline-warning" (click)="goBack()"
+                    <!--   <button class="action back btn btn-sm btn-outline-warning" (click)="goBack()"
                         *ngIf="back!=0">Back</button> -->
-                    <button class="action next btn btn-sm btn-outline-secondary float-end" (click)="[nextUser(),rechercheTel()]" [disabled]="!clientForm.valid" 
-                        *ngIf="!nu&&step1&&!step3" >Suivant</button>
-                        <button class="action next btn btn-sm btn-outline-secondary float-end" (click)="[recepteur(),rechercheTel()]" [disabled]="!clientForm.valid" 
-                        *ngIf="!nu&&step3&&!step4" >Suivant2</button>
-                        <button class="action next btn btn-sm btn-outline-secondary float-end" (click)="[rechercheTel_dest()]" [disabled]="!clientForm.valid" 
-                        *ngIf="!nu&&step4&&!step5" >Suivant3</button>
-                        <button class="action next btn btn-sm btn-outline-secondary float-end" (click)="[verification_montant()]" [disabled]="!clientForm.valid" 
-                        *ngIf="!nu&&step5">Suivant4</button>
-                        <!-- <button type="submit" class="btn btn-sm btn-outline-success float-end"
-                        [disabled]="!clientForm.valid" *ngIf="soumettre">submit</button> -->
+                    <button class="action next btn btn-sm btn-outline-secondary float-end"
+                        (click)="[nextUser(),rechercheTel()]" [disabled]="!clientForm.valid"
+                        *ngIf="!nu&&step1&&!step3">Suivant</button>
+                    <button class="action next btn btn-sm btn-outline-secondary float-end"
+                        (click)="[recepteur(),rechercheTel()]" [disabled]="!clientForm.valid"
+                        *ngIf="!nu&&step3&&!step4">Suivant2</button>
+                    <button class="action next btn btn-sm btn-outline-secondary float-end"
+                        (click)="[rechercheTel_dest()]" [disabled]="!clientForm.valid"
+                        *ngIf="!nu&&step4&&!step5">Suivant3</button>
+                    <button class="action next btn btn-sm btn-outline-secondary float-end"
+                        (click)="[verification_montant()]" [disabled]="!clientForm.valid"
+                        *ngIf="!nu&&step4&&step5">Suivant4</button>
+                    
                 </div>
             </form>
         </div>
