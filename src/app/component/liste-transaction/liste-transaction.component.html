@@ -59,7 +59,8 @@
                   </tr>
               </thead>
               <tbody>
-                  <tr *ngFor='let transaction of datas' >
+                  <tr *ngFor='let transaction of datas'>
+                    <div *ngIf="sessid==transaction.userLogin">
                     <td>{{transaction.montant_a_recevoir}}</td>
                     <td>{{transaction.date_envoi | date:'medium'}}</td>
                     <td>{{transaction.frais}} </td>
@@ -72,7 +73,7 @@
                     <td>{{transaction.id}}</td>
                     <td>{{transaction.emetteurId}}</td>
                     <td>{{transaction.recepteurId}}</td>
-      
+                  </div>
                   </tr>
               </tbody>
           </table>

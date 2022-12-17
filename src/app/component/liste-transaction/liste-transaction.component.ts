@@ -9,6 +9,7 @@ import { TransactionService } from '../../services/transaction.service';
 })
 
 export class ListeTransactionComponent {
+  sessid=sessionStorage.getItem('login')
   title: string = 'Transfert';
   datas!:Transaction[];
   constructor(private transaction:TransactionService) { 

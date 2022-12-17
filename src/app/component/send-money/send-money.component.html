@@ -3,15 +3,7 @@
     <div class="col-11 col-offset-2">
         <div class="card mt-3">
             <form action="#" [formGroup]="clientForm" (ngSubmit)="clientSubmit()">
-                <div class="card-header font-weight-bold align-items-center" *ngIf="!nu&&step1">Selectionner le Type
-                    d'Envoi
-                    <select formControlName="t_envoi">
-                        <option value="" disabled>Choisir Type</option>
-                        <option *ngFor="let type of TEnvoi" [ngValue]="type">
-                            {{ type.abbrev }}
-                        </option>
-                    </select>
-                </div>
+                
                 <div class="card-body p-4 step" *ngIf="nu">
                     <div class="radio-group row justify-content-between px-3 text-center"
                         style="justify-content:center !important">
@@ -94,7 +86,7 @@
                         <div *ngIf="step6" style="margin-top: 24px; opacity: 1; transition: opacity 0.5s ease 0s;">
                             <div
                                 style="height: auto; overflow: visible; visibility: visible; transition: height 1s ease 0s, visibility 1s ease 0s;">
-                                <p class="result__ConvertedText-sc-1bsijpp-0 gwvOOF">15,000 CFA Francs =</p>
+                                <p class="result__ConvertedText-sc-1bsijpp-0 gwvOOF">{{amount}} Francs =</p>
                                 <p class="result__BigRate-sc-1bsijpp-1 iGrAod">22.86<span
                                         class="faded-digits">7353</span> Euros</p>
                             </div>
@@ -183,13 +175,16 @@
                         *ngIf="!nu&&step1&&!step3">Suivant</button>
                     <button class="action next btn btn-sm btn-outline-secondary float-end"
                         (click)="[recepteur(),rechercheTel()]" [disabled]="!clientForm.valid"
-                        *ngIf="!nu&&step3&&!step4">Suivant2</button>
+                        *ngIf="!nu&&step3&&!step4">Suivant</button>
                     <button class="action next btn btn-sm btn-outline-secondary float-end"
                         (click)="[rechercheTel_dest()]" [disabled]="!clientForm.valid"
-                        *ngIf="!nu&&step4&&!step5">Suivant3</button>
+                        *ngIf="!nu&&step4&&!step5">Suivant</button>
                     <button class="action next btn btn-sm btn-outline-secondary float-end"
                         (click)="[verification_montant()]" [disabled]="!clientForm.valid"
-                        *ngIf="!nu&&step4&&step5">Suivant4</button>
+                        *ngIf="!nu&&step4&&step5">Terminer</button>
+                    <button class="action next btn btn-sm btn-outline-secondary float-end"
+                        (click)="[verification_montant()]" [disabled]="!clientForm.valid"
+                        *ngIf="recep1">Recevoir</button>
                     
                 </div>
             </form>

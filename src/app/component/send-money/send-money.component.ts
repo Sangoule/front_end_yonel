@@ -40,6 +40,7 @@ export class SendMoneyComponent{
   step4=false
   step5=false
   step6=false
+  recep1=false
   login!:any
   id_sous_agence!:any
   agence!:SousAgence[];
@@ -48,6 +49,8 @@ export class SendMoneyComponent{
   pays_dest!:any
   trans:any
   date_envoi=new Date()
+  amount=0
+  
   constructor(private _formBuilder: FormBuilder, private router: Router, private clientService: ClientService,private sousAgence:SousAgenceService,private pays:PaysService,private transaction:TransactionService,private datePipe:DatePipe) {
     
    
@@ -187,24 +190,7 @@ export class SendMoneyComponent{
   }
   
   verification_montant(){
-    this.clientForm.value.frais=this.clientForm.value.montant*0.1;
-   /*  this.trans=[
-      {id:8},
-      {userLogin:sessionStorage.getItem('login')},
-      {montant_a_recevoir:this.clientForm.value.montant},
-      {date_envoi:this.datePipe.transform(this.date_envoi,'yyyy-MM-dd hh:mm:ss')},
-      {frais:this.clientForm.value.montant*0.1},
-      {montant_total:this.clientForm.value.montant+this.clientForm.value.montant*0.1},
-      {status:'transmitted'},
-      {pays_origine:this.clientForm.value.pays_origine.nom},
-      {pays_destination:this.clientForm.value.pays_dest.nom},
-      {devise_origine:this.clientForm.value.pays_origine.deviseCodeiso3},
-      {devise_destination:this.clientForm.value.pays_dest.deviseCodeiso3},
-      {emetteurId:this.clientForm.value.phone},
-      {recepteurId:this.clientForm.value.phone2}
-    ] */
-    
-
+   
     this.login=sessionStorage.getItem('login');
     this.id_sous_agence=sessionStorage.getItem('id_sous_agence')
     console.log("sa login bangi "+ this.login)
@@ -216,13 +202,14 @@ export class SendMoneyComponent{
           this.errmt1="Solde Insuffisant"
        }
        else{
+         this.amount=this.convertionDevise()
         this.trans= 
         {
         "userLogin":sessionStorage.getItem('login'),
-        "montant_a_recevoir":this.clientForm.value.montant_a_recevoir,
+        "montant_a_recevoir":this.amount,
         "date_envoi":this.datePipe.transform(this.date_envoi,'yyyy-MM-dd hh:mm:ss'),
-        "frais":this.clientForm.value.montant_a_recevoir*0.1,
-        "montant_total":this.clientForm.value.montant_a_recevoir+this.clientForm.value.montant_a_recevoir*0.1,
+        "frais":this.amount*0.1,
+        "montant_total":this.amount+this.amount*0.1,
         "status":'transmitted',
         "pays_origine":this.clientForm.value.pays_origine.nom,
         "pays_destination":this.clientForm.value.pays_dest.nom,
@@ -240,5 +227,29 @@ export class SendMoneyComponent{
       
     }) 
   }
+  convertionDevise(){
 
+    let valeur=0
+    if(this.clientForm.value.pays_origine.deviseCodeiso3=="FCFA" && this.clientForm.value.pays_destination.deviseCodeiso3=="USD"){
+      valeur=(((this.clientForm.value.montant_a_recevoir)/655.9570)*1.134122)
+  }else if(this.clientForm.value.pays_origine.deviseCodeiso3=="FCFA" && this.clientForm.value.pays_destination.deviseCodeiso3=="EUR"){
+      valeur=((this.clientForm.value.montant_a_recevoir)/655.9570)
+  }else if(this.clientForm.value.pays_origine.deviseCodeiso3=="EUR" && this.clientForm.value.pays_destination.deviseCodeiso3=="USD"){
+      valeur=((this.clientForm.value.montant_a_recevoir)*1.134122)
+  }else if(this.clientForm.value.pays_origine.deviseCodeiso3=="EUO" && this.clientForm.value.pays_destination.deviseCodeiso3=="FCFA"){
+      valeur=((this.clientForm.value.montant_a_recevoir)*655.9570)
+  }else if(this.clientForm.value.pays_origine.deviseCodeiso3=="USD" && this.clientForm.value.pays_destination.deviseCodeiso3=="FCFA"){
+      valeur=(((this.clientForm.value.montant_a_recevoir)/1.134122)*655.9570)
+  }else if(this.clientForm.value.pays_origine.deviseCodeiso3=="USD" && this.clientForm.value.pays_destination.deviseCodeiso3=="EUR"){
+      valeur=((this.clientForm.value.montant_a_recevoir)/1.134122)
+  }else if(this.clientForm.value.pays_origine.deviseCodeiso3=="EUR" && this.clientForm.value.pays_destination.deviseCodeiso3=="EUR"){
+      valeur=this.clientForm.value.montant_a_recevoir
+  }else if(this.clientForm.value.pays_origine.deviseCodeiso3=="USD" && this.clientForm.value.pays_destination.deviseCodeiso3=="USD"){
+      valeur=this.clientForm.value.montant_a_recevoir 
+  }else if(this.clientForm.value.pays_origine.deviseCodeiso3=="FCFA" && this.clientForm.value.pays_destination.deviseCodeiso3=="FCFA"){
+      valeur=this.clientForm.value.montant_a_recevoir
+  }
+  return valeur
+  }
+  
 }
