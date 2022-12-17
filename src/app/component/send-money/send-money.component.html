@@ -39,34 +39,58 @@
             
                 <div class="card-body p-4 step">
                     <div class="text-center">
-                        <h5 class="card-title font-weight-bold pb-2"*ngIf="step1">Informations Emmeteur</h5>
-                        <h5 class="card-title font-weight-bold pb-2"*ngIf="step4">Informations Recepteur</h5>
+                        <h5 class="card-title font-weight-bold pb-2"*ngIf="step1&&!step5">Informations Emmeteur</h5>
+                        <h5 class="card-title font-weight-bold pb-2"*ngIf="step4&&!step5">Informations Recepteur</h5>
+                        <h5 class="card-title font-weight-bold pb-2"*ngIf="step5">Informations Transactions</h5>
                     </div>
-                    <div *ngIf="!clientForm.valid&&showWarn">
+                    <div *ngIf="!clientForm.valid&&showWarn&&!step5">
                         <p class="text-danger"> Champ Numéro de téléphone Invalide</p>
                     </div>
-                    <div *ngIf="errmsgshow">
+                    <div *ngIf="errmsgshow&&!step5">
                         <p class="text-danger"> {{errmsg4}}</p>
-                      </div>
+                    </div>
                     <!-- <div *ngIf="clientbp.phone==''&&showWarn">
                         <p class="text-danger"> Champ Numéro absent dans la base de donnes</p>
                     </div> -->
                     <div class="form-group row">
                         <div class="col-2"></div>
                         <div class="col-4" *ngIf="step1"
-                        (mouseenter)="showWarn = true"
-                        (mouseleave)="showWarn = false">
+                        (mouseenter)="showWarn = false"
+                        (mouseleave)="showWarn = true">
                         <label for="phone">Numéro Téléphone<b style="color: #dc3545;">*</b></label>
                         <input type="text" name="name" class="form-control" id="phone" required
                                 formControlName="phone">
                             <div class="invalid-feedback">This field is required</div>
                         </div>
-                        <div class="col-4" *ngIf="step4"
-                        (mouseenter)="showWarn = true"
-                        (mouseleave)="showWarn = false">
+                        <div *ngIf="errmsgshow&&step5">
+                            <p class="text-danger"> {{errmt1}}</p>
+                        </div>
+                        <div class="col-4" *ngIf="step5">
+                        <label for="phone">Montant a Envoyé<b style="color: #dc3545;">*</b></label>
+                        <input type="text" name="name" class="form-control" id="phone" required
+                                formControlName="montant">
+                            <div class="invalid-feedback">This field is required</div>
+                        </div>
+                        <div class="col-4" *ngIf="step4&&!step5"
+                        (mouseenter)="showWarn = false"
+                        (mouseleave)="showWarn = true">
                         <label for="phone">Numéro Téléphone Recepteur<b style="color: #dc3545;">*</b></label>
                         <input type="text" name="name" class="form-control" id="phone2" required
                                 formControlName="phone2">
+                            <div class="invalid-feedback">This field is required</div>
+                        </div>
+                        <div class="card-header font-weight-bold align-items-center" *ngIf="step4&&!step5">Pays destinataire
+                            <select formControlName="pays_dest">
+                                <option value="" disabled>Choisir Pays</option>
+                                <option *ngFor="let type of TEnvoi" [ngValue]="pays_dest.data">
+                                    {{ pays_dest.data }}
+                                </option>
+                            </select>
+                        </div>
+                        <div class="col-4" *ngIf="">
+                        <label for="phone">Pays destinataire<b style="color: #dc3545;">*</b></label>
+                        <input type="text" name="name" class="form-control" id="phone2" required
+                                formControlName="pays_dest">
                             <div class="invalid-feedback">This field is required</div>
                         </div>
                         <div class="col-4" *ngIf="step2">
@@ -122,7 +146,9 @@
                         <button class="action next btn btn-sm btn-outline-secondary float-end" (click)="[recepteur(),rechercheTel()]" [disabled]="!clientForm.valid" 
                         *ngIf="!nu&&step3&&!step4" >Suivant2</button>
                         <button class="action next btn btn-sm btn-outline-secondary float-end" (click)="[rechercheTel_dest()]" [disabled]="!clientForm.valid" 
-                        *ngIf="!nu&&step4" >Suivant3</button>
+                        *ngIf="!nu&&step4&&!step5" >Suivant3</button>
+                        <button class="action next btn btn-sm btn-outline-secondary float-end" (click)="[verification_montant()]" [disabled]="!clientForm.valid" 
+                        *ngIf="!nu&&step5">Suivant4</button>
                         <!-- <button type="submit" class="btn btn-sm btn-outline-success float-end"
                         [disabled]="!clientForm.valid" *ngIf="soumettre">submit</button> -->
                 </div>

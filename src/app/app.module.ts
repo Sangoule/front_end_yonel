@@ -29,6 +29,7 @@ import { SidebarComponent } from './shared/sidebar/sidebar.component';
 import { UserComponent } from './user/user.component';
 import { AlertComponent } from './alert/alert.component';
 
+
 const DEFAULT_PERFECT_SCROLLBAR_CONFIG: PerfectScrollbarConfigInterface = {
   suppressScrollX: true,
   wheelSpeed: 1,
@@ -43,7 +44,7 @@ const DEFAULT_PERFECT_SCROLLBAR_CONFIG: PerfectScrollbarConfigInterface = {
     FullComponent,
     NavigationComponent,
     SidebarComponent,   
-    UserComponent, AlertComponent
+    UserComponent, AlertComponent,
     
   ],
   imports: [

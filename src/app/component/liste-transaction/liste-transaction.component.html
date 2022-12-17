@@ -108,7 +108,7 @@
                             </td>
                             <td class="fs-4">{{ts.montant_total}}</td>
                             <td>
-                                <span class="p-2 bg-{{ts.status}} rounded-circle d-inline-block ms-3"></span>
+                                <span class="p-2 bg-rounded-circle d-inline-block ms-3" *ngIf="ts.status=='transmitted'"></span>
                             </td>
                             
                             <td>

@@ -2,11 +2,12 @@ import { Component, OnInit } from '@angular/core';
 import { FormGroup, FormControl, Validators, FormBuilder, EmailValidator } from '@angular/forms';
 import { Router } from '@angular/router';
 import { ClientService } from '../../services/client.service';
+import { SousAgence } from '../../models/sous-agence';
+import { SousAgenceService } from '../../services/sous-agence.service';
+import {PaysService} from '../../services/pays.service';
 @Component({
-  
   templateUrl: 'send-money.component.html',
   styleUrls: ['./receive-money.component.css', './receive-money.component.scss']
-
 })
 export class SendMoneyComponent{
   TEnvoi = [
@@ -17,6 +18,8 @@ export class SendMoneyComponent{
   errmsg: string | undefined;
   errmsg1: string | undefined;
   errmsg4:string | undefined;
+  errmt1:string|undefined
+  errmt2:string | undefined
   nu = true;
   showWarn=false;
   back = 10;
@@ -32,10 +35,14 @@ export class SendMoneyComponent{
   step3=false
   step4=false
   step5=false
-
-  constructor(private _formBuilder: FormBuilder, private router: Router, private clientService: ClientService) {
+  login!:any
+  id_sous_agence!:any
+  agence!:SousAgence[];
+  sous_agence!:any
+  test_montant=false
+  pays_dest!:any
+  constructor(private _formBuilder: FormBuilder, private router: Router, private clientService: ClientService,private sousAgence:SousAgenceService,private pays:PaysService) {
    
-    
   }
   clientForm = new FormGroup({
     email: new FormControl('', Validators.email),
@@ -46,6 +53,8 @@ export class SendMoneyComponent{
     birthdate: new FormControl(),
     t_envoi: new FormControl(this.TEnvoi[1],Validators.required),
     phone2: new FormControl('', Validators.minLength(9)),
+    pays:new FormControl(),
+    montant:new FormControl()
   })
 // les fonctions de navigations
   newUser() {
@@ -60,7 +69,6 @@ export class SendMoneyComponent{
 
   }
   goBack() {
-    
     this.nu = true;
   }
   //Enregistrer un nouveaux utilisateur
@@ -121,10 +129,9 @@ export class SendMoneyComponent{
   rechercheTel_dest() {
     if (this.clientForm.value.phone2!='') {
       if(this.clientForm.value.phone2==this.clientForm.value.phone){
-        this.errmsgshow = true;
-        if (true) {
+       
           this.errmsg4 = 'Bounou Fonto';
-        }
+        
       }
       console.log(this.clientForm.value.phone);
 
@@ -136,15 +143,14 @@ export class SendMoneyComponent{
         // else {this.errmsgshow = true;this.errmsg1="Verifiez vos identifiants"}
       })
       console.log(this.client_dest+" Thie rousloma nga deuk")
-      if(this.client_dest=null){
+      if(this.client_dest==''){
         this.errmsgshow = true;
-        this.errmsg4 = ' Numéro déstinataire pas enregistrer';
+        this.errmsg4 = ' Numéro déstinataire pas Enregistrer';
       }
       this.step5=true
 
     }
     else {
-
       this.errmsgshow = true;
       if (this.clientForm.valid == null) {
         this.errmsg = 'All field required';
@@ -158,9 +164,31 @@ export class SendMoneyComponent{
       this.step3=false
       this.step2=false
       this.step1=false
+      this.pays.getAllPays().subscribe(data=>{
+        this.pays_dest=data;
+        console.log(data)
+      })
   }
   registerRecepteur(){
     this.soumettre = true
+  }
+  verification_montant(){
+    
+    this.login=sessionStorage.getItem('login');
+    this.id_sous_agence=sessionStorage.getItem('id_sous_agence')
+    console.log("sa login bangi "+ this.login)
+    this.sousAgence.getSousAgenceById(this.id_sous_agence).subscribe(data=>{
+      this.sous_agence=data;
+      console.log(data)
+       if(data.agence.montant<this.clientForm.value.montant){
+          this.errmsgshow=true;
+          this.errmt1="Solde Insuffisant"
+       }
+       else{
+          
+       }
+      
+    }) 
   }
 
 }
